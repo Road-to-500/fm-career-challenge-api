@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: fm_career_challenge
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: local-development-only
+    ports:
+      - "5432:5432"
+    volumes:
+      - fmcc-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d fm_career_challenge"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  api:
+    build: .
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__PostgreSql: Host=postgres;Port=5432;Database=fm_career_challenge;Username=postgres;Password=local-development-only
+      Frontend__Origin: http://localhost:5173
+      Frontend__BaseUrl: http://localhost:5173
+      Authentication__Google__ClientId: ${Authentication__Google__ClientId:-}
+      Authentication__Google__ClientSecret: ${Authentication__Google__ClientSecret:-}
+      Authentication__Microsoft__ClientId: ${Authentication__Microsoft__ClientId:-}
+      Authentication__Microsoft__ClientSecret: ${Authentication__Microsoft__ClientSecret:-}
+    ports:
+      - "5195:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  fmcc-postgres:

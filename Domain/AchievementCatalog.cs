@@ -1,0 +1,77 @@
+namespace FmCareerChallenge.Api.Domain;
+
+public static class AchievementCatalog
+{
+    public static IReadOnlyList<AchievementDefinition> All { get; } =
+    [
+        Make("G001", "First Division Champion", "Domestic", AchievementFrequency.Season, 18),
+        Make("G002", "Second Division Champion", "Domestic", AchievementFrequency.Season, 12),
+        Make("G003", "Third Division Champion", "Domestic", AchievementFrequency.Season, 8),
+        Make("G004", "Fourth Division Champion or Lower", "Domestic", AchievementFrequency.Season, 5),
+        Make("G005", "Promotion to the First Division", "Domestic", AchievementFrequency.Season, 7),
+        Make("G006", "Promotion to the Second Division", "Domestic", AchievementFrequency.Season, 5),
+        Make("G007", "Promotion to a Lower Division", "Domestic", AchievementFrequency.Season, 3),
+        Make("G008", "National Cup Winner", "Domestic", AchievementFrequency.Season, 10),
+        Make("G009", "League Cup Winner", "Domestic", AchievementFrequency.Season, 6),
+        Make("G010", "National Super Cup Winner", "Domestic", AchievementFrequency.Season, 3),
+        Make("G011", "First-Division Survival After Promotion", "Domestic", AchievementFrequency.ClubSeason, 4),
+        Make("G012", "First-Division Runner-Up", "Domestic", AchievementFrequency.Season, 5),
+        Make("G013", "Domestic Double", "Domestic", AchievementFrequency.Season, 7),
+        Make("G014", "Unbeaten League Season", "Domestic", AchievementFrequency.Season, 10),
+        Make("G015", "National Cup Winner with a Lower-Division Club", "Domestic", AchievementFrequency.Season, 8),
+        Make("G016", "Top Four with a Newly Promoted Club", "Domestic", AchievementFrequency.Season, 6),
+        Make("G017", "Two Consecutive Promotions at One Club", "Domestic", AchievementFrequency.PerClub, 8),
+        Make("G018", "Three Consecutive Promotions at One Club", "Domestic", AchievementFrequency.PerClub, 12),
+        Make("G019", "First-Division Champion After Promotion", "Domestic", AchievementFrequency.Season, 10),
+        Make("G020", "Top Continental Club Competition Winner", "Continental", AchievementFrequency.Season, 30),
+        Make("G021", "Second-Tier Continental Competition Winner", "Continental", AchievementFrequency.Season, 20),
+        Make("G022", "Third-Tier Continental Competition Winner", "Continental", AchievementFrequency.Season, 15),
+        Make("G023", "Continental Super Cup Winner", "Continental", AchievementFrequency.Season, 4),
+        Make("G024", "Club World Cup Winner", "Continental", AchievementFrequency.Season, 12),
+        Make("G025", "First Continental Qualification with a Club", "Continental", AchievementFrequency.PerClub, 6),
+        Make("G026", "Repeat Continental Qualification with a Club", "Continental", AchievementFrequency.ClubSeason, 2),
+        Make("G027", "First Top-Tier Continental Qualification with a Club", "Continental", AchievementFrequency.PerClub, 4),
+        Make("G028", "Champions League Quarter-Finalist", "Continental", AchievementFrequency.Season, 4),
+        Make("G029", "Champions League Semi-Finalist", "Continental", AchievementFrequency.Season, 7),
+        Make("G030", "Champions League Runner-Up", "Continental", AchievementFrequency.Season, 10),
+        Make("G031", "Europa League Runner-Up", "Continental", AchievementFrequency.Season, 7),
+        Make("G032", "Continental Trophies with Two Different Clubs", "Continental", AchievementFrequency.Once, 10),
+        Make("G033", "Twenty Official Matches as a National Team Manager", "International", AchievementFrequency.Once, 8),
+        Make("G034", "World Cup Winner", "International", AchievementFrequency.Season, 25),
+        Make("G035", "Continental National Team Champion", "International", AchievementFrequency.Season, 18),
+        Make("G036", "World Cup Semi-Finalist", "International", AchievementFrequency.Season, 10),
+        Make("G037", "New Club Career Move", "Career", AchievementFrequency.PerClub, 5),
+        Make("G038", "First First-Division Contract", "Career", AchievementFrequency.Once, 6),
+        Make("G039", "First Step Up to a Higher Division", "Career", AchievementFrequency.Once, 4),
+        Make("G040", "First Major Trophy with a Club", "Career", AchievementFrequency.PerClub, 5),
+        Make("G041", "Twenty Matches in a New Country", "Career", AchievementFrequency.PerCountry, 5),
+        Make("G042", "Managed Three Different Clubs", "Career", AchievementFrequency.Once, 8),
+        Make("G043", "Managed Five Different Clubs", "Career", AchievementFrequency.Once, 8),
+        Make("G044", "Managed Eight Different Clubs", "Career", AchievementFrequency.Once, 10),
+        Make("G045", "First-Division Champion in Two Countries", "Career", AchievementFrequency.Once, 10),
+        Make("G046", "First-Division Champion in Three Countries", "Career", AchievementFrequency.Once, 10),
+        Make("G047", "Managed in Four Different Countries", "Career", AchievementFrequency.Once, 8),
+        Make("G048", "Won Ten Major Trophies", "Career", AchievementFrequency.Once, 8),
+        Make("G049", "First-Division Champion with Two Clubs", "Career", AchievementFrequency.Once, 8),
+        Make("G050", "Promoted One Club from the Third to First Division", "Career", AchievementFrequency.PerClub, 12),
+        Make("G051", "Manager of the Year", "Career", AchievementFrequency.Season, 4),
+        Make("G052", "Won Five First-Division Championships", "Career", AchievementFrequency.Once, 8),
+        Make("G053", "Managed Across Three Continents", "Career", AchievementFrequency.Once, 10),
+    ];
+
+    private static AchievementDefinition Make(
+        string code,
+        string name,
+        string category,
+        AchievementFrequency frequency,
+        int points) =>
+        new()
+        {
+            Code = code,
+            Name = name,
+            Category = category,
+            Frequency = frequency,
+            DefaultPoints = points,
+            Description = $"Awarded for {name.ToLowerInvariant()}.",
+        };
+}
