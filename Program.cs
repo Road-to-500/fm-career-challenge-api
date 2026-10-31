@@ -142,7 +142,7 @@ if (!string.IsNullOrWhiteSpace(googleClientId) && !string.IsNullOrWhiteSpace(goo
         options.ClientSecret = googleClientSecret;
         options.SignInScheme = IdentityConstants.ExternalScheme;
         options.Scope.Add("profile");
-        options.ClaimActions.MapJsonKey("email_verified", "verified_email", "bool");
+        options.ClaimActions.MapJsonKey("email_verified", "email_verified", "bool");
         options.SaveTokens = false;
     });
 }
