@@ -25,8 +25,6 @@ services:
       Frontend__BaseUrl: http://localhost:5173
       Authentication__Google__ClientId: ${Authentication__Google__ClientId:-}
       Authentication__Google__ClientSecret: ${Authentication__Google__ClientSecret:-}
-      Authentication__Microsoft__ClientId: ${Authentication__Microsoft__ClientId:-}
-      Authentication__Microsoft__ClientSecret: ${Authentication__Microsoft__ClientSecret:-}
     ports:
       - "5195:8080"
     depends_on:

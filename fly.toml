@@ -1,0 +1,51 @@
+app = "road-to-500-api-prod"
+primary_region = "fra"
+kill_signal = "SIGTERM"
+kill_timeout = 30
+
+[build]
+  dockerfile = "Dockerfile"
+
+[deploy]
+  strategy = "rolling"
+  release_command = "FmCareerChallenge.Api.dll --migrate"
+
+[env]
+  ASPNETCORE_ENVIRONMENT = "Production"
+  ASPNETCORE_URLS = "http://+:8080"
+  AllowedHosts = "road-to-500-web-prod.fly.dev"
+  Frontend__Origin = "https://road-to-500-web-prod.fly.dev"
+  Frontend__BaseUrl = "https://road-to-500-web-prod.fly.dev"
+  ReverseProxy__KnownProxies__0 = "fdaa:e9:24fa:a7b:10d:3ded:1a3c:2"
+  DataProtection__ApplicationName = "fm-career-challenge"
+  DataProtection__KeyRingPath = "/data"
+  DataProtection__CertificatePath = "/app/data-protection-prod.pfx"
+
+# No public service: the frontend proxy connects over Fly's private network.
+[checks.health]
+  type = "http"
+  port = 8080
+  method = "GET"
+  path = "/health"
+  interval = "30s"
+  timeout = "5s"
+  grace_period = "30s"
+
+[checks.health.headers]
+  Host = "road-to-500-web-prod.fly.dev"
+
+[[mounts]]
+  source = "fmcc_keys"
+  destination = "/data"
+
+[[files]]
+  guest_path = "/app/data-protection-prod.pfx"
+  secret_name = "FMCC_DATA_PROTECTION_PFX_BASE64"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory = "512mb"
+
+[[restart]]
+  policy = "always"
